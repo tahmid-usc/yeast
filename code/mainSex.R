@@ -9,17 +9,17 @@ source("code/matern32.R")
 
 fet <- lapply(train, feature) #estimate hyperparameter
 
-#save(fet, file = 'matern32.Rdata')
+save(fet, file = 'rbffit.Rdata')
 
 # Plot fitted
-ageseq <- seq(-3,3, length = 100)
+ageseq <- seq(0,1, length = 100)
 
-plot(fet$fem$trainx, fet$fem$trainy, pch = 16, col = 1, 
+plot(fet$G1$trainx, fet$G1$trainy, pch = 16, col = 1, 
      cex=.5, xlab='t', ylab='y')
-points(fet$mal$trainx, fet$mal$trainy, pch = 16, col = 2, cex=.5)
-lines(ageseq, gpsmooth(ageseq, fet$fem), type='l', lwd = 2, col = 1)
-lines(ageseq, gpsmooth(ageseq, fet$mal), type='l', lwd = 2, col = 2)
-#legend('bottomright', c('Male', 'Female'), col = c(1,'grey'), lty=1, bty = 'n')
+points(fet$G1$trainx, fet$G1$trainy, pch = 16, col = 2, cex=.5)
+lines(ageseq, gpsmooth(ageseq, fet$G1), type='l', lwd = 2, col = 1)
+lines(ageseq, gpsmooth(ageseq, fet$NonG1), type='l', lwd = 2, col = 2)
+legend('bottomright', c('G1', 'Non-G1'), col = 1:2, lty=1, bty = 'n')
 
 
 #------------------------------
