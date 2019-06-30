@@ -9,7 +9,7 @@ source("code/matern32.R")
 
 fet <- lapply(train, feature) #estimate hyperparameter
 
-save(fet, file = 'rbffit.Rdata')
+save(fet, file = 'matern52fit.Rdata')
 
 # Plot fitted
 ageseq <- seq(0,1, length = 100)
@@ -23,30 +23,31 @@ legend('bottomright', c('G1', 'Non-G1'), col = 1:2, lty=1, bty = 'n')
 
 
 #------------------------------
-
+#blogprob <- log.prob
 
 log.prob <- c()
 
 for(i in unique(test$idnum)) {
+#for(i in 1:10) {
   
-  fit1 <- fit.gp(fet$fem, testx = test[test$idnum == i, 3], testy = test[test$idnum == i, 5])
-  fit2 <- fit.gp(fet$mal, testx = test[test$idnum == i, 3], testy = test[test$idnum == i, 5])
+  fit1 <- fit.gp(fet$G1, testx = test[test$idnum == i, 2], testy = test[test$idnum == i, 4])
+  fit2 <- fit.gp(fet$NonG1, testx = test[test$idnum == i, 2], testy = test[test$idnum == i, 4])
   log.prob <- rbind(log.prob, c(fit1, fit2))
   
 }
 
 y <- c()
 for (i in unique(test$idnum)) {
-  y <- rbind(y, as.character((test[test$idnum == i, 4])[1]))
+#for (i in 1:10) {
+  y <- rbind(y, as.character((test[test$idnum == i, 3])[1]))
 }
 
+log.prob <- log.prob + cbind(rep(log(0.3627451),612), rep(log(0.6372549),612))
+
 y.pred <- log.prob[,1] > log.prob[,2]
-pred <- ifelse(y.pred == 0, 'mal', 'fem')
+pred <- ifelse(y.pred == 1, 'G1', 'NonG1')
 table(pred, y)
 err <- mean(pred != y)
 err
 
 
-#Training error
-#Full training
-#laplace : 0.2678571, RBF : 0.2857143, matern52: 0.2785714. matern32: 0.2857143

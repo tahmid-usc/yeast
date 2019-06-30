@@ -8,7 +8,7 @@ Hyper <- function(trainx, trainy, repnum, N) {
     -dmvnorm(x = trainy, sigma = kxx + theta[5] * diag(N), log = T)
   }
   
-  hyp <- optim(par=rep(1, 5), fn = marlik, method = 'BFGS',
+  hyp <- optim(par=rep(1, 5), fn = marlik, method = 'Nelder-Mead',
                control=list(maxit = 1000))
   print(hyp)
   return(hyp$par^2)
