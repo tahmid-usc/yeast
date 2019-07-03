@@ -1,0 +1,21 @@
+Matern 32
+
+       y
+pred     G1 NonG1
+  G1    183    37
+  NonG1  39   353
+> err <- mean(pred != y)
+> err
+[1] 0.124183
+
+Mtern 52
+
+> table(pred, y)
+       y
+pred     G1 NonG1
+  G1    181    34
+  NonG1  41   356
+> err <- mean(pred != y)
+> err
+[1] 0.122549
+
