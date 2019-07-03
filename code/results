@@ -19,3 +19,13 @@ pred     G1 NonG1
 > err
 [1] 0.122549
 
+RBF
+
+> table(pred, y)
+       y
+pred     G1 NonG1
+  G1    137    23
+  NonG1  85   367
+> err <- mean(pred != y)
+> err
+[1] 0.1764706
