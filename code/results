@@ -29,3 +29,32 @@ pred     G1 NonG1
 > err <- mean(pred != y)
 > err
 [1] 0.1764706
+
+
+Laplace
+
+> table(pred, y)
+       y
+pred     G1 NonG1
+  G1    187    33
+  NonG1  35   357
+> err <- mean(pred != y)
+> err
+[1] 0.1111111
+
+
+FGLM
+
+-Probability of correct classification by group (prob.classification):
+       G1     NonG1 
+0.7567568 0.8820513 
+
+-Confusion matrix between the theoretical groups (by rows)
+  and estimated groups (by column) 
+       
+         G1 NonG1
+  G1    168    54
+  NonG1  46   344
+
+-Probability of correct classification:  0.8366 
+error 0.1634
